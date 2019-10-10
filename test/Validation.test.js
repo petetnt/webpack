@@ -479,4 +479,52 @@ describe("Validation", () => {
 			   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, serve?, stats?, target?, watch?, watchOptions? }"
 		`)
 	);
+
+	createTestCase(
+		"ecmaVersion",
+		{
+			output: { ecmaVersion: 2008 }
+		},
+		msg =>
+			expect(msg).toMatchInlineSnapshot(`
+			"Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
+			 - configuration.output.ecmaVersion should be >= 2009."
+		`)
+	);
+
+	createTestCase(
+		"ecmaVersion",
+		{
+			output: { ecmaVersion: 20008 }
+		},
+		msg =>
+			expect(msg).toMatchInlineSnapshot(`
+			"Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
+			 - configuration.output.ecmaVersion should be <= 2020."
+		`)
+	);
+
+	createTestCase(
+		"ecmaVersion",
+		{
+			output: { ecmaVersion: 4 }
+		},
+		msg =>
+			expect(msg).toMatchInlineSnapshot(`
+			"Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
+			 - configuration.output.ecmaVersion should be >= 2009."
+		`)
+	);
+
+	createTestCase(
+		"ecmaVersion",
+		{
+			output: { ecmaVersion: 40 }
+		},
+		msg =>
+			expect(msg).toMatchInlineSnapshot(`
+			"Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
+			 - configuration.output.ecmaVersion should be >= 2009."
+		`)
+	);
 });
